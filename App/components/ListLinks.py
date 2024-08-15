@@ -1,6 +1,6 @@
 from flet import * 
-from features.BarSeleccion import BarView
-from features.components.linkProgressing import StractLink
+from components.features.BarSeleccion import BarView
+from logic.linkProgressing import StractLink
 import asyncio
 
 # Es recomendable no utilizar ni altura ni ancho predetermiado 
@@ -17,8 +17,8 @@ class LinksComponent(Column):
         self.addBotton = ElevatedButton(text="add", on_click=self.button_clicked)
         self.listLinks = Row(spacing=2, wrap=True,auto_scroll=True,scroll=True,height=500)
         self.downloadBotton = ElevatedButton(text="Download all", on_click=self.downloadContent)
-        self.buttonDownloadTxt = FilePicker()
-        
+        #self.addFile = FilePicker()
+        self.addFile = ElevatedButton(text=" ",icon=icons.UPLOAD_FILE_ROUNDED)
         
         #self.expand=True
         #self.updatListLinks= 
@@ -27,9 +27,8 @@ class LinksComponent(Column):
                     controls=[
                         self.addLink,
                         self.addBotton,
-                        self.downloadBotton,
-                        
-                        
+                        self.downloadBotton,             
+                        self.addFile
                     ]
                 ),
                 
@@ -44,13 +43,21 @@ class LinksComponent(Column):
         self.update()
 
     def downloadContent(self,objet):
-        #self.listLinks.controls.remove(objet)
-        self.update()
-
-    def button_clicked(self,e):
+        pass
+    def stractFiledata(self,objet):
+        dataLink=StractLink(self.addLink.value)
+        data = asyncio.run(dataLink.mostrar())
+        print(data[0],"\n",data[1],"\n",data[2])
+        bar = BarView(data[0],self.addLink.value,data[1][0],self.deletObjet)
+        self.listLinks.controls.append( 
+            bar
+        )
+        self.addLink.value = ""
         
+        self.update()
+    def button_clicked(self,e):
         ## Esto fue  lo que se modifico 
-        dataLink=StractLink("https://rimworldbase.com/?upd=1720848762542")
+        dataLink=StractLink(self.addLink.value)
         data = asyncio.run(dataLink.mostrar())
         print(data[0],"\n",data[1],"\n",data[2])
         bar = BarView(data[0],self.addLink.value,data[1][0],self.deletObjet)

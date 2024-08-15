@@ -1,7 +1,7 @@
 from flet import *
-from body.ListLinks import LinksComponent
-from body.DownloadInfo import DataSheet
-#from features.components.pathFile import  selectFile
+from components.ListLinks import LinksComponent
+from components.DownloadInfo import DataSheet
+from logic.fileExtractData import *
 
 """
 Lista de mejoras:
@@ -46,12 +46,10 @@ class Main:
                 
             )   
         
-       
+       #print(ReadFile("App/Test/webs.txt"))
         self.page.add(
             self.header,
             self.body
-            
-            
         )
         
-app(target=Main,view=AppView.WEB_BROWSER)
+app(target=Main)
