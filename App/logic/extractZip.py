@@ -2,7 +2,7 @@ import zipfile as zip
 
 class Unzip:
     def __init__(self,pathDecompress):
-           this.decompress= pathDecompress
+           self.pathDecompress= pathDecompress
 
     def decompress(self, namesZips):
         
@@ -10,7 +10,7 @@ class Unzip:
             self.nameZips=namesZips[1]
         else:
             self.nameZips =list(namesZips)
-        pathUnzip = this.pathDecompress
+        pathUnzip = self.pathDecompress
         if (ruta != null) :
             pathZip = f'{ruta}{name}'
             for name in namesZips:
