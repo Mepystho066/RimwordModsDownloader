@@ -4,14 +4,6 @@ from logic.linkProgressing import *
 #from logic.fileExtractData import *
 import asyncio
 
-
-# Es recomendable no utilizar ni altura ni ancho predetermiado 
-
-"""
-Agregar alerta cuando no se tiene ninguna informacion
-Para la barras se puedan utilizar en todo el area se necesita utilziar 
-"""
-
 class LinksComponent(Column):
     def __init__(self):
         super().__init__()
@@ -88,10 +80,4 @@ class LinksComponent(Column):
         self.addLink.value = ""
         self.update()
         
-"""
-Idea  que se me ocurre, agregar un borrar todos o seleccionados
-
-se pude intentar hacer agregandolo a otra lista la cual altera el color para mostrar que esta seleccionada
-
-"""
 

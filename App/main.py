@@ -2,11 +2,7 @@ from flet import *
 from components.ListLinks import LinksComponent
 from components.DownloadInfo import DataSheet
 
-"""
-Lista de mejoras:
-Organizar los colores 
-quitar el emoji y agregar otro 
-"""
+
 class Main:
 
     def __init__(self,page:Page):
