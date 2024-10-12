@@ -6,7 +6,7 @@ Es un proyecto personal el cual tiene la intención de facilitar la descarga de 
 - [Rimworld mods download | TOP Rimworld mods](https://top-mods.com/mods/rimworld)
 Pero se tiene la intención de que se pueda utilizar con distintas aplicaciones 
 ## Uso 
-- 1 Activar el /entrono virtual 
+- 1 Activar el /entorno virtual 
 ~~~shell
 python -m RimworldModsDownloader/bin/active 
 ~~~
