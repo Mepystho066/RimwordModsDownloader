@@ -1,5 +1,6 @@
 import asyncio
 import aiohttp
+from aiohttp import web 
 from bs4 import BeautifulSoup
 import time
 import random
@@ -45,7 +46,7 @@ class topMods:
         time.sleep(random.randint(1,2))
         webContent= await self.fetchContent()
         visibleWebContent = BeautifulSoup(webContent, 'html.parser')
-        enlaces_mega =visibleWebContent.find_all('a' , href= lambda href : href and 'modsfire' in href)
+        enlaces_mega =visibleWebContent.find_all('a' , href= lambda href : href and 'sharemods' in href)
         link = [a['href'] for a in enlaces_mega]
         #Actualizar todos los componentes de link para que ya no sean link[0]
         return link
@@ -53,19 +54,19 @@ class topMods:
     async def extract_mega_url2(self):
         time.sleep(random.randint(1,2))
         link = await self.extract_mega_url()
-        #print("depu" + link[0])
+        print("depu" + link[0])
         webContent= await self.fetchContent(link[0])
         visibleWebContent = BeautifulSoup(webContent, 'html.parser')
-        button = visibleWebContent.find("a",{'class':'download-button'})
+        button = visibleWebContent.find("button",{'id':'downloadbtn'})
+        #info = web.Response(button)
+        #linkStract = "https://modsfire.com"+button["href"]
         
-        linkStract = "https://modsfire.com"+button["href"]
-        
-        async with aiohttp.ClientSession() as session:
-            # Simulamos un POST, dependiendo de los datos requeridos
-            async with session.post(linkStract, data={'key': 'value'}) as response:
-                content = await response.text() 
-                info = BeautifulSoup(content,'html.parser')
-                print(info)
+        #async with aiohttp.ClientSession() as session:
+        #    # Simulamos un POST, dependiendo de los datos requeridos
+        #    async with session.post(linkStract, data={'key': 'value'}) as response:
+        #        content = await response.text() 
+        #        info = BeautifulSoup(content,'html.parser')
+        print(visibleWebContent)
 
         #webContent2= await self.fetchContent(linkStract)
         #visibleWebContent2 = BeautifulSoup(webContent2, 'html.parser')
@@ -106,8 +107,10 @@ async def run_program(link):
     print("Tiempo total:", tiempo_final - tiempo_inicial)
 """
 
-if __name__ =="__main__":
-    info = topMods("https://top-mods.com/mods/rimworld/other/13165-ebsg-framework.html")    
-    
-    info2 = asyncio.run(info.mostrar())
-    print(info2)
+## TESTS
+
+##if __name__ =="__main__":
+##    info = topMods("https://top-mods.com/mods/rimworld/other/13165-ebsg-framework.html")    
+##    
+##    info2 = asyncio.run(info.extract_mega_url2())
+##    print(info2)

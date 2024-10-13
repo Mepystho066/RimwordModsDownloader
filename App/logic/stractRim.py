@@ -3,6 +3,7 @@ import aiohttp
 from bs4 import BeautifulSoup
 import time
 import random
+
 class rimworld:
     def __init__(self, link):
         self.link = link

@@ -1,7 +1,8 @@
 from flet import * 
 from components.features.BarSeleccion import BarView
 from logic.linkProgressing import *
-#from logic.fileExtractData import *
+from logic.RimwordDB import *
+from logic.dowloadmod import *
 import asyncio
 
 class LinksComponent(Column):
@@ -17,20 +18,23 @@ class LinksComponent(Column):
         self.pathFile = Text()
         self.addFile = ElevatedButton("Pick file",icon=icons.UPLOAD_FILE,on_click=lambda _: self.pick_files_dialog.pick_files())
         self.addFileContent  = ElevatedButton("Add File Content",on_click=self.stractFiledata)
-        #self.expand=True
-        #self.updatListLinks= 
-        #print(self.page.width)
-        self.controls=[Row(
+        self.expand=Row(
                     controls=[
                         self.addLink,
                         self.addBotton,
                         self.downloadBotton,             
                         self.addFile,
                         self.selected_files,
-                        self.addFileContent
-                    ]
-                ),  
-                self.listLinks,    
+                        self.addFileContent,
+                       
+                    ],
+                    alignment=MainAxisAlignment.CENTER,
+                )
+        #self.updatListLinks= 
+        #print(self.page.width)
+        self.controls=[
+            self.expand ,
+            self.listLinks,    
         ] 
 
 
@@ -48,8 +52,9 @@ class LinksComponent(Column):
         self.listLinks.controls.remove(objet)
         self.update()
 
-    def downloadContent(self,objet):
-        
+    def downloadContent(self,obj):
+        # Genera un error 
+        #print(self.listLinks.controls.count())
         pass
 
     def stractFiledata(self,objet):
@@ -58,7 +63,7 @@ class LinksComponent(Column):
         #print(links)
         for i in links:            
             if i == "":  pass
-            dataLink=topMods(i)
+            dataLink=RimwordDB(i)
             data = asyncio.run(dataLink.mostrar())
             print(data[0],"\n",data[1],"\n",data[2])
             bar = BarView(data[0],i,data[1],self.deletObjet)
@@ -70,10 +75,11 @@ class LinksComponent(Column):
 
     def button_clicked(self,e):
         ## Esto fue  lo que se modifico 
-        dataLink=topMods(self.addLink.value)
+       
+        dataLink=RimwordDB(self.addLink.value)
         data = asyncio.run(dataLink.mostrar())
         print(data)
-        bar = BarView(data[0],self.addLink.value,data[1],self.deletObjet)
+        bar = BarView(data[0],self.addLink.value,data[1],data[2],self.deletObjet)
         self.listLinks.controls.append( 
             bar
         )
